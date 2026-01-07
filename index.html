@@ -79,13 +79,47 @@
       .highlight {
         color: #ff8488;
       }
-      
+
+	  .centre-text {
+		text-align: center;
+	  }
+
+      * {box-sizing: border-box;}
+
+	  #question_wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-content: space-between;
+		width: 810px;
+		height: 850px;
+		margin: 0 auto;
+	  }
+
+	  #controls_wrapper {
+		padding: 5px;
+		text-align: center;
+	  }
+		
+	  .tile {
+		border: 2px solid grey;
+	  }
+		
+	  .selected {
+		border: 2px solid cyan !important;
+	  }
+
+	  .tile img {
+		object-fit: contain;
+		width: 250px;
+		height: 250px;
+	  }
     </style>
   </head>
   
   <body>
     <div class="header">
-      <h1>PM ANNA-MAJA KAZARIAN</h1>
+      <h1><span class="highlight">PM</span> Anna-Maja Kazarian</h1>
       <p>07.01.2026</p>
     </div>
 
@@ -96,165 +130,102 @@
 
         <p>This content is not suitable for patzers. Please complete the captcha below to unlock your gift.</p>
 
-        <h3>Select moves that are blunders</h3>
+        <h3>Select all moves that are blunders</h3>
 
         <div id="question_wrapper"></div>
         <div id="controls_wrapper">
-          <button onclick="check_tiles()">Check answer</button>
+          <button id="captcha_button" onclick="click_button()">Check answer</button>
         </div>
-
-      </div>
-
-      <div id="lyrics" class="section">
-
-        <h2>Playin' g5</h2>
-        
-        <p>That's probably enough yapping from yours truly, so let's get the show rolling. If you have not already done so, you can start listening to the Phoebeatles album using the music player at the bottom of the page. In case you'd like to sing along, the lyrics for the songs are included below, or in the <a href="assets/booklet/booklet.pdf" target="_blank">booklet</a> you can download by clicking on the picture above.</p>
-        
-        <div id="playing5" class="song">
-          <h4>Playin' g5 by Aye Ems</h4>
-          <p>A parody of <a href="https://www.youtube.com/watch?v=fNFzfwLM72c" target="_blank">"Stayin' Alive"</a> by Bee Gees</p>
-          
-          <p>Well, you can tell by the way I push my pawns,<br/>
-          It's exciting, no time for yawns,<br/>
-          The tactics sharp and the clock runs low,<br/>
-          I'm seizin' space with each tempo.</p>
-
-          <p>And now I control the kingside,<br/>
-          And you may say I've been inspired,<br/>
-          The wisest words we ever wrote,<br/>
-          Oh, Philidor's most famous quote.</p>
-
-          <p class="chorus">Whether you're a boomer or whether you're a zoomer,<br/>
-          I'm playin' g5, playin' g5,<br/>
-          Got my pawn advancin' and I could begin dancin',<br/>
-          When I'm playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5,<br/>
-          Oh, watch me push</p>
-
-          <p>Well now, I play Black and I play White,<br/>
-          And I'll claim g5 from either side,<br/>
-          It's the perfect outpost, a great square,<br/>
-          It's my dream come true and your nightmare.</p>
-
-          <p>And now I control the kingside,<br/>
-          It's amazing how fast pawns glide,<br/>
-          The wisest words we ever wrote,<br/>
-          Oh, Philidor's most famous quote.</p>
-
-          <p class="chorus">Whether you're a boomer or whether you're a zoomer,<br/>
-          I'm playin' g5, playin' g5,<br/>
-          Got my pawn advancin' and I could begin dancin',<br/>
-          When I'm playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5<br/>
-          (Yeah)</p>
-
-          <p>King's goin' nowhere,<br/>
-          I'm gonna hunt it,<br/>
-          I'm gonna hunt it, yeah,<br/>
-          King's goin' nowhere,<br/>
-          I'm gonna hunt it, yeah,<br/>
-          I'm playin' g5.</p>
-
-          <p>Well, you can tell by the way I push my pawns,<br/>
-          It's exciting, no time for yawns,<br/>
-          The tactics sharp and the clock runs low,<br/>
-          I'm seizin' space with each tempo.</p>
-
-          <p>And now I control the kingside,<br/>
-          And you may say I've been inspired,<br/>
-          The wisest words we ever wrote,<br/>
-          Oh, Philidor's most famous quote.</p>
-
-          <p class="chorus">Whether you're a boomer or whether you're a zoomer,<br/>
-          I'm playin' g5, playin' g5,<br/>
-          Got my pawn advancin' and I could begin dancin',<br/>
-          When I'm playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5, playin' g5,<br/>
-          Ah, ah, ah, ah,<br/>
-          Playin' g5<br/>
-          (Yeah)</p>
-
-          <p>King's goin' nowhere,<br/>
-          I'm gonna hunt it,<br/>
-          I'm gonna hunt it, yeah,<br/>
-          King's goin' nowhere,<br/>
-          I'm gonna hunt it, yeah,<br/>
-          I'm playin' g5,<br/>
-          <span class="highlight">(Repeat 4x)</span></p>
-        </div>
- 
+		<p id="captcha_result" class="centre-text"></p>
       </div>
 
     </div>
 
     <!-- Captcha code -->
     <script>
-      var right_tiles: [
-			"https://www.countryflags.com/wp-content/uploads/sweden-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/flag-jpg-xl-16-1024x512.jpg",
-			"https://www.countryflags.com/wp-content/uploads/wales-flag-jpg-xl-1024x608.jpg",
-			"https://www.countryflags.com/wp-content/uploads/cyprus-flag-png-large.png"
-		];
-      var wrong_tiles: [
-			"https://www.countryflags.com/wp-content/uploads/japan-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/united-states-of-america-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/brazil-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/seychelles-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/south-africa-flag-png-large.png",
-			"https://www.countryflags.com/wp-content/uploads/south-korea-flag-png-large.png"
-		];
-      
-      function randint(min, max) {
-	      return Math.floor(Math.random() * (max - min + 1) + min);
-      }
+      var questions = {
+		right_tiles: [
+			"https://skrewz07.github.io/annamaja/captcha/move01.png",
+			"https://skrewz07.github.io/annamaja/captcha/move02.png",
+			"https://skrewz07.github.io/annamaja/captcha/move03.png",
+			"https://skrewz07.github.io/annamaja/captcha/move04.png",
+			"https://skrewz07.github.io/annamaja/captcha/move05.png",
+			"https://skrewz07.github.io/annamaja/captcha/move06.png",
+			"https://skrewz07.github.io/annamaja/captcha/move07.png",
+			"https://skrewz07.github.io/annamaja/captcha/move08.png"
+		],
+		wrong_tiles: [
+			"https://skrewz07.github.io/annamaja/captcha/move09.png",
+			"https://skrewz07.github.io/annamaja/captcha/move10.png",
+			"https://skrewz07.github.io/annamaja/captcha/move11.png",
+			"https://skrewz07.github.io/annamaja/captcha/move12.png",
+			"https://skrewz07.github.io/annamaja/captcha/move13.png",
+			"https://skrewz07.github.io/annamaja/captcha/move14.png",
+			"https://skrewz07.github.io/annamaja/captcha/move15.png",
+			"https://skrewz07.github.io/annamaja/captcha/move16.png"
+		]
+	  };
 
-      function load_question() {
-	      var correct_answers = randint(3,6);
-	      var right_shuffled = right_tiles.sort(() => 0.5 - Math.random());
-	      var wrong_shuffled = wrong_tiles.sort(() => 0.5 - Math.random());
-	      var tiles = [].concat(right_shuffled.slice(0,correct_answers), wrong_shuffled.slice(0,9-correct_answers))
-	      var tiles_shuffled = tiles.sort(() => 0.5 - Math.random());
-	      tiles_str = "";
-	      for (tile of tiles_shuffled) {
-		      tiles_str += `<div class='tile' onclick='select_tile(this)'><img src='${tile}'></div>`;
-	      }
-	      document.getElementById('question_wrapper').innerHTML = tiles_str;
-      }
+	  function randint(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	  }
 
-      load_question();
+	  function load_question() {
+		var correct_answers = randint(3,6);
+		var right_shuffled = questions.right_tiles.sort(() => 0.5 - Math.random());
+		var wrong_shuffled = questions.wrong_tiles.sort(() => 0.5 - Math.random());
+		var tiles = [].concat(right_shuffled.slice(0,correct_answers), wrong_shuffled.slice(0,9-correct_answers));
+		var tiles_shuffled = tiles.sort(() => 0.5 - Math.random());
+		tiles_str = "";
+		for (tile of tiles_shuffled) {
+		  tiles_str += `<div class='tile' onclick='select_tile(this)'><img src='${tile}'></div>`;
+		}
+		document.getElementById('question_wrapper').innerHTML = tiles_str;
+		document.getElementById('captcha_result').innerHTML = ``;
+		document.getElementById('captcha_button').innerHTML = `Check answer`;
+	  }
 
-      function select_tile(tile) {
-	      tile.classList.toggle("selected");
-      }
+	  load_question();
 
-      function check_tiles() {
-	      var points = 0;
-	      var all_tiles = document.getElementById('question_wrapper').childNodes;
-	      for (tile of all_tiles) {
-		      if (questions[current_question].right_tiles.includes(tile.childNodes[0].src)) {
-			      if (tile.classList.contains("selected")) {
-				      points++;
-			      }
-		      }
-		      else {
-			      if (!tile.classList.contains("selected")) {
-				      points++;
-			      }
-		      }
-	      }
-	      alert(`You got ${points} / 9 correct`)
-      }
-    </script>
+	  function select_tile(tile) {
+		tile.classList.toggle("selected");
+	  }
+
+	  function click_button() {
+		if (document.getElementById('captcha_button').innerHTML == `Retry captcha`) {
+		  load_question();
+		}
+		else {
+		  check_tiles();
+		}
+	  }
+
+	  function check_tiles() {
+		var points = 0;
+		var all_tiles = document.getElementById('question_wrapper').childNodes;
+		for (tile of all_tiles) {
+		  if (questions.right_tiles.includes(tile.childNodes[0].src)) {
+			if (tile.classList.contains("selected")) {
+			  points++;
+			}
+		  }
+		  else {
+			if (!tile.classList.contains("selected")) {
+			  points++;
+			}
+		  }
+		}
+		if (points == 9) {
+		  document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct! <br/> Welcome Master, you may <a href="lyrics.html">proceed</a> to your gift now.`;
+		}
+		else {
+		  var courses = ["https://www.chessable.com/starting-out-1e4-e5/course/245608/","https://www.chessable.com/starting-out-1d4-d5/course/351858/"];
+		  var courseID = randint(0,1);
+		  document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct, patzer. Perhaps you should <a href="${courses[courseID]}" target="_blank">study a bit</a> before trying again.`;
+		}
+		document.getElementById('captcha_button').innerHTML = `Retry captcha`;
+	  }
+  </script>
 
   </body>
 </html>
