@@ -75,6 +75,12 @@
 		text-align: center;
 	  }
 
+	  .centre-img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	  }
+
       * {box-sizing: border-box;}
 
 	  #question_wrapper {
@@ -120,10 +126,10 @@
       <div id="captcha" class="section">
         <h2>WARNING</h2>
 
-		<img src="restricted.png" alt="A sign restricting access to players rated 2000 and above" width="255" height="240">
-
         <p>This content is not suitable for patzers. Please complete the captcha below to unlock your gift.</p>
 
+		<img class="img-centre" src="restricted.png" alt="A sign restricting access to players rated 2000 and above" width="255" height="240">
+		  
         <h3>Select all moves that are blunders</h3>
 
         <div id="question_wrapper"></div>
