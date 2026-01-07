@@ -145,26 +145,27 @@
     <script>
       var questions = {
 		right_tiles: [
-			"https://skrewz07.github.io/annamaja/captcha/move01.png",
-			"https://skrewz07.github.io/annamaja/captcha/move02.png",
-			"https://skrewz07.github.io/annamaja/captcha/move03.png",
-			"https://skrewz07.github.io/annamaja/captcha/move04.png",
-			"https://skrewz07.github.io/annamaja/captcha/move05.png",
-			"https://skrewz07.github.io/annamaja/captcha/move06.png",
-			"https://skrewz07.github.io/annamaja/captcha/move07.png",
-			"https://skrewz07.github.io/annamaja/captcha/move08.png"
+			"https://skrewz07.github.io/annamaja/captcha/moves01.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves02.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves03.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves04.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves05.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves06.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves07.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves08.png"
 		],
 		wrong_tiles: [
-			"https://skrewz07.github.io/annamaja/captcha/move09.png",
-			"https://skrewz07.github.io/annamaja/captcha/move10.png",
-			"https://skrewz07.github.io/annamaja/captcha/move11.png",
-			"https://skrewz07.github.io/annamaja/captcha/move12.png",
-			"https://skrewz07.github.io/annamaja/captcha/move13.png",
-			"https://skrewz07.github.io/annamaja/captcha/move14.png",
-			"https://skrewz07.github.io/annamaja/captcha/move15.png",
-			"https://skrewz07.github.io/annamaja/captcha/move16.png"
+			"https://skrewz07.github.io/annamaja/captcha/moves09.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves10.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves11.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves12.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves13.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves14.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves15.png",
+			"https://skrewz07.github.io/annamaja/captcha/moves16.png"
 		]
 	  };
+	  var attempts = 0;
 
 	  function randint(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -201,6 +202,7 @@
 	  }
 
 	  function check_tiles() {
+		attempts++;
 		var points = 0;
 		var all_tiles = document.getElementById('question_wrapper').childNodes;
 		for (tile of all_tiles) {
@@ -219,9 +221,14 @@
 		  document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct! <br/> Welcome Master, you may <a href="lyrics.html">proceed</a> to your gift now.`;
 		}
 		else {
-		  var courses = ["https://www.chessable.com/starting-out-1e4-e5/course/245608/","https://www.chessable.com/starting-out-1d4-d5/course/351858/"];
-		  var courseID = randint(0,1);
-		  document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct, patzer. Perhaps you should <a href="${courses[courseID]}" target="_blank">study a bit</a> before trying again.`;
+		  if (attempts >= 3) {
+			document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct, patzer. This is becoming painful to watch. You could try again, or you could <a href="lyrics.html">skip ahead</a> to your gift, it'll be our little secret.`;
+		  }
+		  else {
+			var courses = ["https://www.chessable.com/starting-out-1e4-e5/course/245608/","https://www.chessable.com/starting-out-1d4-d5/course/351858/"];
+			var courseID = randint(0,1);
+			document.getElementById('captcha_result').innerHTML = `You got ${points} / 9 correct, patzer. Perhaps you should <a href="${courses[courseID]}" target="_blank">study a bit</a> before trying again.`;
+		  }
 		}
 		document.getElementById('captcha_button').innerHTML = `Retry captcha`;
 	  }
